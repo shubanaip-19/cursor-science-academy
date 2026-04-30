@@ -1,68 +1,43 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Mail, MapPin, MessageCircle } from "lucide-react";
+import { Mail } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Cursor" },
-      { name: "description", content: "Get in touch with the Cursor team about science courses for grades 5–9." },
+      { name: "description", content: "Send feedback to help improve Cursor science courses for grades 5–9." },
       { property: "og:title", content: "Contact Cursor" },
-      { property: "og:description", content: "Get in touch with the Cursor team." },
+      { property: "og:description", content: "Email us your feedback to help improve Cursor." },
     ],
   }),
   component: ContactPage,
 });
 
 function ContactPage() {
+  const email = "shuban.patnaik@misv.se";
   return (
-    <div className="container mx-auto px-6 py-20">
-      <div className="grid lg:grid-cols-2 gap-12">
-        <div>
-          <span className="text-sm font-medium uppercase tracking-wider text-primary">Get in touch</span>
-          <h1 className="mt-4 text-4xl md:text-5xl font-bold">Let's <span className="text-gradient">talk science</span></h1>
-          <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
-            Questions about a course, school partnerships, or just want to say hi?
-            We answer every message within a school day.
-          </p>
-          <div className="mt-10 space-y-5">
-            {[
-              { icon: Mail, label: "Email", value: "shuban.patnaik@misv.se" },
-              { icon: MessageCircle, label: "Live chat", value: "Mon–Fri, 9am–5pm" },
-              { icon: MapPin, label: "Lab", value: "Online, with friends worldwide" },
-            ].map((c) => (
-              <div key={c.label} className="flex items-start gap-4">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <c.icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-wider text-muted-foreground">{c.label}</p>
-                  <p className="font-medium">{c.value}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+    <div className="container mx-auto px-6 py-24">
+      <div className="max-w-2xl mx-auto text-center">
+        <span className="text-sm font-medium uppercase tracking-wider text-primary">Get in touch</span>
+        <h1 className="mt-4 text-4xl md:text-5xl font-bold">
+          Help us <span className="text-gradient">improve Cursor</span>
+        </h1>
+        <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
+          Email this address with your feedback to help improve Cursor.
+        </p>
 
-        <form
-          onSubmit={(e) => { e.preventDefault(); alert("Thanks! We'll be in touch soon."); }}
-          className="rounded-2xl border border-border bg-gradient-card p-8 shadow-card-soft space-y-5"
+        <a
+          href={`mailto:${email}`}
+          className="group mt-12 inline-flex items-center gap-4 rounded-2xl border border-border bg-gradient-card px-6 py-5 shadow-card-soft transition-smooth hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-elegant"
         >
-          <div>
-            <label className="text-sm font-medium">Name</label>
-            <input required className="mt-2 w-full rounded-lg border border-border bg-background/60 px-4 py-3 text-sm focus:border-primary outline-none transition-smooth" placeholder="Ada Lovelace" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-primary shadow-glow">
+            <Mail className="h-5 w-5 text-primary-foreground" />
           </div>
-          <div>
-            <label className="text-sm font-medium">Email</label>
-            <input required type="email" className="mt-2 w-full rounded-lg border border-border bg-background/60 px-4 py-3 text-sm focus:border-primary outline-none transition-smooth" placeholder="you@example.com" />
+          <div className="text-left">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground">Email</p>
+            <p className="text-lg font-semibold">{email}</p>
           </div>
-          <div>
-            <label className="text-sm font-medium">Message</label>
-            <textarea required rows={5} className="mt-2 w-full rounded-lg border border-border bg-background/60 px-4 py-3 text-sm focus:border-primary outline-none transition-smooth resize-none" placeholder="What would you like to learn about?" />
-          </div>
-          <button type="submit" className="w-full rounded-lg bg-gradient-primary py-3 font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-smooth">
-            Send message
-          </button>
-        </form>
+        </a>
       </div>
     </div>
   );
