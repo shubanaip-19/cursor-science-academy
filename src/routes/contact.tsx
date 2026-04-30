@@ -26,7 +26,7 @@ function ContactPage() {
           </p>
           <div className="mt-10 space-y-5">
             {[
-              { icon: Mail, label: "Email", value: "hello@cursor.science" },
+              { icon: Mail, label: "Email", value: "shuban.patnaik@misv.se" },
               { icon: MessageCircle, label: "Live chat", value: "Mon–Fri, 9am–5pm" },
               { icon: MapPin, label: "Lab", value: "Online, with friends worldwide" },
             ].map((c) => (
