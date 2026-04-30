@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
-import { courses, grades } from "@/data/courses";
+import { ExternalLink, ShieldCheck } from "lucide-react";
+import { courses, grades, providers } from "@/data/courses";
 import { CourseCard } from "@/components/CourseCard";
 
 const searchSchema = z.object({
@@ -12,9 +13,9 @@ export const Route = createFileRoute("/courses")({
   head: () => ({
     meta: [
       { title: "Courses — Cursor Science for Grades 5–9" },
-      { name: "description", content: "Browse all Cursor science courses by grade — biology, chemistry, physics, earth and space." },
+      { name: "description", content: "Curated science courses from Khan Academy, CK-12, NASA, PhET, and more — organized by grade 5 through 9." },
       { property: "og:title", content: "Courses — Cursor" },
-      { property: "og:description", content: "Browse all science courses for grades 5–9." },
+      { property: "og:description", content: "Curated free science courses from trusted partners, organized by grade." },
     ],
   }),
   component: CoursesPage,
@@ -28,9 +29,14 @@ function CoursesPage() {
   return (
     <div className="container mx-auto px-6 py-16">
       <div className="max-w-3xl">
-        <h1 className="text-4xl md:text-5xl font-bold">All <span className="text-gradient">Science</span> Courses</h1>
+        <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+          <ShieldCheck className="h-3.5 w-3.5" /> Curated from trusted educators
+        </span>
+        <h1 className="mt-5 text-4xl md:text-5xl font-bold">
+          All <span className="text-gradient">Science</span> Courses
+        </h1>
         <p className="mt-4 text-muted-foreground text-lg">
-          Filter by grade to find the perfect starting point.
+          Hand-picked free courses from Khan Academy, CK-12, NASA, PhET, and National Geographic Kids — organized by grade.
         </p>
       </div>
 
@@ -61,6 +67,34 @@ function CoursesPage() {
       <div className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filtered.map((c) => <CourseCard key={c.id} course={c} />)}
       </div>
+
+      {/* Trusted partners */}
+      <section className="mt-24">
+        <div className="max-w-2xl">
+          <h2 className="text-3xl font-bold">Our learning partners</h2>
+          <p className="mt-3 text-muted-foreground">
+            Cursor curates the best free science resources on the web. Every course links to its
+            original home so credit — and learners — go to the educators making it possible.
+          </p>
+        </div>
+        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {providers.map((p) => (
+            <a
+              key={p.name}
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-start justify-between gap-4 rounded-xl border border-border bg-gradient-card p-5 transition-smooth hover:border-primary/50 hover:shadow-elegant"
+            >
+              <div>
+                <p className="font-semibold">{p.name}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{p.description}</p>
+              </div>
+              <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-smooth shrink-0 mt-1" />
+            </a>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
