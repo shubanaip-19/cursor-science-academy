@@ -118,3 +118,12 @@
   50% { transform: translateY(-10px); }
 }
 .animate-float { animation: float 6s ease-in-out infinite; }
+
+/* Hide the "Edit with Lovable" badge */
+[id*="lovable-badge"],
+[class*="lovable-badge"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
