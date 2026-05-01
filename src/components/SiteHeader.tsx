@@ -15,6 +15,7 @@ export function SiteHeader() {
         <nav className="hidden md:flex items-center gap-8">
           <Link to="/" className={linkCls} activeOptions={{ exact: true }} activeProps={{ className: "text-foreground font-medium" }}>Home</Link>
           <Link to="/courses" className={linkCls} activeProps={{ className: "text-foreground font-medium" }}>Courses</Link>
+          <Link to="/ib-courses" className={linkCls} activeProps={{ className: "text-foreground font-medium" }}>IB Courses</Link>
           <Link to="/about" className={linkCls} activeProps={{ className: "text-foreground font-medium" }}>About</Link>
           <Link to="/contact" className={linkCls} activeProps={{ className: "text-foreground font-medium" }}>Contact</Link>
         </nav>
