@@ -73,7 +73,7 @@ function IBCoursesPage() {
           <GraduationCap className="h-3.5 w-3.5" /> International Baccalaureate
         </span>
         <h1 className="mt-5 text-4xl md:text-5xl font-bold">
-          IB <span text-gradient="true" className="text-gradient">Science</span> Courses
+          IB <span className="text-gradient">Science</span> Courses
         </h1>
         <p className="mt-4 text-muted-foreground text-lg">
           Curated resources for IB Middle Years (MYP) and Diploma Programme (DP) sciences — pulled from
