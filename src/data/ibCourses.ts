@@ -30,8 +30,8 @@ export const ibCourses: IBCourse[] = [
     duration: "Year-long",
     description: "Inquiry-based science across biology, chemistry, and physics for MYP years 1–3.",
     icon: FlaskConical,
-    provider: "Kognity",
-    url: "https://www.kognity.com/",
+    provider: "Khan Academy",
+    url: "https://www.khanacademy.org/science/ms-biology",
   },
   {
     id: "myp-biology",
