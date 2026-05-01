@@ -31,7 +31,7 @@ export const ibCourses: IBCourse[] = [
     description: "Inquiry-based science across biology, chemistry, and physics for MYP years 1–3.",
     icon: FlaskConical,
     provider: "Kognity",
-    url: "https://kognity.com/curriculum/ib-myp/",
+    url: "https://www.kognity.com/",
   },
   {
     id: "myp-biology",
@@ -44,7 +44,7 @@ export const ibCourses: IBCourse[] = [
     description: "Cells, ecosystems, and human biology with MYP-style criterion tasks.",
     icon: Leaf,
     provider: "Save My Exams",
-    url: "https://www.savemyexams.com/ib/biology/",
+    url: "https://www.savemyexams.com/ib/",
   },
   {
     id: "myp-chemistry",
@@ -153,8 +153,8 @@ export const ibCourses: IBCourse[] = [
     duration: "Two years",
     description: "All SL topics plus rigid body mechanics, fields, and quantum physics.",
     icon: Rocket,
-    provider: "Physics & Maths Tutor",
-    url: "https://www.physicsandmathstutor.com/physics-revision/ib/",
+    provider: "IB Physics (ibphysics.org)",
+    url: "https://ibphysics.org/",
   },
 
   // DP ESS + CS
@@ -168,8 +168,8 @@ export const ibCourses: IBCourse[] = [
     duration: "Two years",
     description: "Ecosystems, biodiversity, climate, and sustainability — interdisciplinary DP science.",
     icon: Globe2,
-    provider: "InThinking",
-    url: "https://www.thinkib.net/ess",
+    provider: "Save My Exams",
+    url: "https://www.savemyexams.com/dp/environmental-systems-and-societies/",
   },
   {
     id: "dp-cs",
@@ -181,18 +181,17 @@ export const ibCourses: IBCourse[] = [
     duration: "Two years",
     description: "System fundamentals, networks, OOP, and computational thinking for the DP.",
     icon: Telescope,
-    provider: "Computer Science Café",
-    url: "https://www.compsciencecafe.com/",
+    provider: "Save My Exams",
+    url: "https://www.savemyexams.com/dp/computer-science/",
   },
 ];
 
 export const ibProgrammes = ["MYP", "DP"] as const;
 
 export const ibProviders = [
-  { name: "Kognity", url: "https://kognity.com/", description: "Interactive IB MYP and DP textbooks used by IB schools worldwide." },
+  { name: "Kognity", url: "https://www.kognity.com/", description: "Interactive IB MYP and DP textbooks used by IB schools worldwide." },
   { name: "Save My Exams", url: "https://www.savemyexams.com/ib/", description: "Topic notes, revision questions, and past papers for IB DP." },
-  { name: "InThinking", url: "https://www.thinkib.net/", description: "Subject sites written by experienced IB examiners and teachers." },
   { name: "Bioknowledgy", url: "https://bioknowledgy.weebly.com/", description: "Free IB Biology slides, notes, and assessments by Chris Paine." },
-  { name: "Physics & Maths Tutor", url: "https://www.physicsandmathstutor.com/physics-revision/ib/", description: "IB Physics revision notes and past paper questions by topic." },
+  { name: "IB Physics", url: "https://ibphysics.org/", description: "Free IB Physics notes, videos, and past paper walkthroughs." },
   { name: "Khan Academy", url: "https://www.khanacademy.org/science", description: "Free aligned content for chemistry, physics, and biology fundamentals." },
 ];
