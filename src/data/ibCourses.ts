@@ -181,8 +181,8 @@ export const ibCourses: IBCourse[] = [
     duration: "Two years",
     description: "System fundamentals, networks, OOP, and computational thinking for the DP.",
     icon: Telescope,
-    provider: "Save My Exams",
-    url: "https://www.savemyexams.com/dp/computer-science/",
+    provider: "Khan Academy",
+    url: "https://www.khanacademy.org/computing/computer-science",
   },
 ];
 
