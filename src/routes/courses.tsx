@@ -52,6 +52,23 @@ function CoursesPage() {
         </p>
       </div>
 
+      <form onSubmit={handleSearch} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-2xl">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search for more courses on Google…"
+            className="pl-9 h-11"
+            aria-label="Search for more courses on Google"
+          />
+        </div>
+        <Button type="submit" className="h-11 bg-gradient-primary text-primary-foreground shadow-glow">
+          Search Google
+        </Button>
+      </form>
+
       <div className="mt-10 flex flex-wrap gap-3">
         <Link
           to="/courses"
