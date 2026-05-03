@@ -59,13 +59,13 @@ function CoursesPage() {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for more courses on Google…"
+            placeholder="Search the web for more courses…"
             className="pl-9 h-11"
-            aria-label="Search for more courses on Google"
+            aria-label="Search the web for more courses"
           />
         </div>
         <Button type="submit" className="h-11 bg-gradient-primary text-primary-foreground shadow-glow">
-          Search Google
+          Search
         </Button>
       </form>
 
