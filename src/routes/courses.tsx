@@ -27,6 +27,15 @@ export const Route = createFileRoute("/courses")({
 function CoursesPage() {
   const { grade } = Route.useSearch();
   const filtered = grade ? courses.filter((c) => c.grade === grade) : courses;
+  const [query, setQuery] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = query.trim();
+    if (!q) return;
+    const url = `https://www.google.com/search?q=${encodeURIComponent(q + " free online course")}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
 
   const chip = "px-4 py-2 rounded-full text-sm font-medium border transition-smooth";
   return (
