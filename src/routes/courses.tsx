@@ -33,7 +33,7 @@ function CoursesPage() {
     e.preventDefault();
     const q = query.trim();
     if (!q) return;
-    const url = `https://www.google.com/search?q=${encodeURIComponent(q + " free online course")}`;
+    const url = `https://duckduckgo.com/?q=${encodeURIComponent(q + " free online course")}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
