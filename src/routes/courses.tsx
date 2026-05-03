@@ -1,8 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { z } from "zod";
-import { ExternalLink, ShieldCheck } from "lucide-react";
+import { ExternalLink, ShieldCheck, Search } from "lucide-react";
 import { courses, grades, providers } from "@/data/courses";
 import { CourseCard } from "@/components/CourseCard";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const searchSchema = z.object({
   grade: z.coerce.number().int().min(5).max(9).optional(),
