@@ -33,7 +33,7 @@ function CoursesPage() {
     e.preventDefault();
     const q = query.trim();
     if (!q) return;
-    const url = `https://www.google.com/search?q=${encodeURIComponent(q + " free online course")}`;
+    const url = `https://duckduckgo.com/?q=${encodeURIComponent(q + " free online course")}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
@@ -59,13 +59,13 @@ function CoursesPage() {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for more courses on Google…"
+            placeholder="Search the web for more courses…"
             className="pl-9 h-11"
-            aria-label="Search for more courses on Google"
+            aria-label="Search the web for more courses"
           />
         </div>
         <Button type="submit" className="h-11 bg-gradient-primary text-primary-foreground shadow-glow">
-          Search Google
+          Search
         </Button>
       </form>
 
