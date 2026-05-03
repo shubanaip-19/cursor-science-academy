@@ -1,8 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { z } from "zod";
-import { ExternalLink, ShieldCheck } from "lucide-react";
+import { ExternalLink, ShieldCheck, Search } from "lucide-react";
 import { courses, grades, providers } from "@/data/courses";
 import { CourseCard } from "@/components/CourseCard";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const searchSchema = z.object({
   grade: z.coerce.number().int().min(5).max(9).optional(),
@@ -24,6 +27,15 @@ export const Route = createFileRoute("/courses")({
 function CoursesPage() {
   const { grade } = Route.useSearch();
   const filtered = grade ? courses.filter((c) => c.grade === grade) : courses;
+  const [query, setQuery] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = query.trim();
+    if (!q) return;
+    const url = `https://www.google.com/search?q=${encodeURIComponent(q + " free online course")}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
 
   const chip = "px-4 py-2 rounded-full text-sm font-medium border transition-smooth";
   return (
@@ -39,6 +51,23 @@ function CoursesPage() {
           Hand-picked free courses from Khan Academy, CK-12, NASA, PhET, and National Geographic Kids — organized by grade.
         </p>
       </div>
+
+      <form onSubmit={handleSearch} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-2xl">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search for more courses on Google…"
+            className="pl-9 h-11"
+            aria-label="Search for more courses on Google"
+          />
+        </div>
+        <Button type="submit" className="h-11 bg-gradient-primary text-primary-foreground shadow-glow">
+          Search Google
+        </Button>
+      </form>
 
       <div className="mt-10 flex flex-wrap gap-3">
         <Link
