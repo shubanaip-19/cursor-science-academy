@@ -125,3 +125,77 @@ function Index() {
     </>
   );
 }
+
+function RatingVote() {
+  const STORAGE_KEY = "cursor-rating-votes";
+  const VOTED_KEY = "cursor-rating-voted";
+  const [votes, setVotes] = useState<number[]>([0, 0, 0, 0, 0]);
+  const [myVote, setMyVote] = useState<number | null>(null);
+  const [hover, setHover] = useState(0);
+
+  useEffect(() => {
+    try {
+      const v = localStorage.getItem(STORAGE_KEY);
+      if (v) setVotes(JSON.parse(v));
+      const mine = localStorage.getItem(VOTED_KEY);
+      if (mine) setMyVote(Number(mine));
+    } catch {}
+  }, []);
+
+  const submit = (stars: number) => {
+    if (myVote) return;
+    const next = [...votes];
+    next[stars - 1] += 1;
+    setVotes(next);
+    setMyVote(stars);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      localStorage.setItem(VOTED_KEY, String(stars));
+    } catch {}
+  };
+
+  const total = votes.reduce((a, b) => a + b, 0);
+  const avg = total ? votes.reduce((a, b, i) => a + b * (i + 1), 0) / total : 0;
+  const display = hover || myVote || 0;
+
+  return (
+    <div className="rounded-2xl border border-border bg-card p-8">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div>
+          <h2 className="text-2xl font-bold">Rate Cursor</h2>
+          <p className="mt-2 text-muted-foreground">
+            {myVote ? `Thanks for voting! You gave ${myVote} star${myVote > 1 ? "s" : ""}.` : "Tap a star to cast your vote."}
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1" role="radiogroup" aria-label="Rate out of 5">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <button
+                key={i}
+                type="button"
+                disabled={!!myVote}
+                onMouseEnter={() => !myVote && setHover(i)}
+                onMouseLeave={() => !myVote && setHover(0)}
+                onClick={() => submit(i)}
+                aria-label={`${i} star${i > 1 ? "s" : ""}`}
+                className="p-1 disabled:cursor-not-allowed"
+              >
+                <Star className={`h-7 w-7 transition-smooth ${i <= display ? "fill-primary text-primary" : "text-muted-foreground"}`} />
+              </button>
+            ))}
+          </div>
+          <div className="text-sm text-muted-foreground">
+            {total > 0 ? (
+              <>
+                <span className="font-bold text-foreground font-display text-lg">{avg.toFixed(1)}</span> / 5
+                <span className="ml-2">({total} vote{total !== 1 ? "s" : ""})</span>
+              </>
+            ) : (
+              <span>No votes yet</span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
