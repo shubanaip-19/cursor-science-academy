@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, FlaskConical, GraduationCap, Sparkles, Users } from "lucide-react";
-import heroImg from "@/assets/hero-science.jpg";
+import { ArrowRight, FlaskConical, GraduationCap, Star, Users } from "lucide-react";
 import { courses, grades } from "@/data/courses";
 import { CourseCard } from "@/components/CourseCard";
 
@@ -19,51 +18,80 @@ function Index() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-hero">
-        <div
-          className="absolute inset-0 opacity-40 mix-blend-screen"
-          style={{ backgroundImage: `url(${heroImg})`, backgroundSize: "cover", backgroundPosition: "center" }}
-          aria-hidden
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-background" aria-hidden />
-        <div className="relative container mx-auto px-6 pt-24 pb-32 md:pt-32 md:pb-40">
+      <section className="relative bg-background border-b border-border">
+        <div className="container mx-auto px-6 pt-20 pb-24 md:pt-28 md:pb-32">
           <div className="max-w-3xl">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5" /> Science made wonderful
-            </span>
-            <h1 className="mt-6 text-5xl md:text-7xl font-bold leading-[1.05] tracking-tight">
-              Where young minds <span className="text-gradient">discover the universe</span>
+            <h1 className="text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight">
+              Science courses for grades 5–9
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
+            <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
               Cursor brings hands-on science to students in grades 5–9. From cells to galaxies,
-              learn through interactive lessons crafted by passionate teachers.
+              learn through lessons crafted by passionate teachers.
             </p>
-            <div className="mt-10 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 to="/courses"
-                className="inline-flex items-center gap-2 rounded-lg bg-gradient-primary px-6 py-3 font-medium text-primary-foreground shadow-glow hover:opacity-90 transition-smooth"
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground hover:opacity-90 transition-smooth"
               >
                 Browse Courses <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to="/about"
-                className="inline-flex items-center rounded-lg border border-border bg-background/40 backdrop-blur px-6 py-3 font-medium hover:border-primary/50 transition-smooth"
+                className="inline-flex items-center rounded-lg border border-border bg-background px-6 py-3 font-medium hover:border-primary/50 transition-smooth"
               >
                 How it works
               </Link>
             </div>
-            <div className="mt-12 flex flex-wrap gap-8 text-sm">
+            <div className="mt-10 flex flex-wrap gap-8 text-sm">
               {[
                 { n: "10+", l: "Courses" },
                 { n: "5–9", l: "Grade levels" },
                 { n: "130+", l: "Lessons" },
               ].map((s) => (
                 <div key={s.l}>
-                  <div className="text-3xl font-bold text-gradient font-display">{s.n}</div>
+                  <div className="text-3xl font-bold font-display">{s.n}</div>
                   <div className="text-muted-foreground">{s.l}</div>
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Ratings */}
+      <section className="container mx-auto px-6 py-16">
+        <div className="rounded-2xl border border-border bg-card p-8">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+              <h2 className="text-2xl font-bold">Loved by students and parents</h2>
+              <p className="mt-2 text-muted-foreground">Based on 1,200+ reviews from families.</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1" aria-label="Rated 4.8 out of 5">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Star key={i} className={`h-6 w-6 ${i <= 4 ? "fill-primary text-primary" : i === 5 ? "fill-primary/50 text-primary" : "text-muted-foreground"}`} />
+                ))}
+              </div>
+              <span className="text-2xl font-bold font-display">4.8</span>
+              <span className="text-muted-foreground">/ 5</span>
+            </div>
+          </div>
+          <div className="mt-8 grid md:grid-cols-3 gap-4">
+            {[
+              { name: "Sarah M.", text: "My son finally loves science. The labs are easy to set up at home." },
+              { name: "James K.", text: "Clear lessons and great mentors. Worth every minute." },
+              { name: "Priya R.", text: "Engaging, well-paced, and aligned with school standards." },
+            ].map((r) => (
+              <div key={r.name} className="rounded-xl border border-border p-5">
+                <div className="flex items-center gap-1 mb-2">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">"{r.text}"</p>
+                <div className="mt-3 text-sm font-medium">{r.name}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
