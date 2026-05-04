@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowRight, FlaskConical, GraduationCap, Star, Users } from "lucide-react";
+import heroBg from "@/assets/hero-rocket.png";
 import { courses, grades } from "@/data/courses";
 import { CourseCard } from "@/components/CourseCard";
 
