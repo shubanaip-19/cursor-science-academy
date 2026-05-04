@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { ArrowRight, FlaskConical, GraduationCap, Star, Users } from "lucide-react";
 import { courses, grades } from "@/data/courses";
 import { CourseCard } from "@/components/CourseCard";
@@ -22,7 +23,7 @@ function Index() {
         <div className="container mx-auto px-6 pt-20 pb-24 md:pt-28 md:pb-32">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight">
-              Science courses for grades 5–9
+              Where young minds discover the universe
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
               Cursor brings hands-on science to students in grades 5–9. From cells to galaxies,
@@ -58,42 +59,9 @@ function Index() {
         </div>
       </section>
 
-      {/* Ratings */}
+      {/* Vote */}
       <section className="container mx-auto px-6 py-16">
-        <div className="rounded-2xl border border-border bg-card p-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div>
-              <h2 className="text-2xl font-bold">Loved by students and parents</h2>
-              <p className="mt-2 text-muted-foreground">Based on 1,200+ reviews from families.</p>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1" aria-label="Rated 4.8 out of 5">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Star key={i} className={`h-6 w-6 ${i <= 4 ? "fill-primary text-primary" : i === 5 ? "fill-primary/50 text-primary" : "text-muted-foreground"}`} />
-                ))}
-              </div>
-              <span className="text-2xl font-bold font-display">4.8</span>
-              <span className="text-muted-foreground">/ 5</span>
-            </div>
-          </div>
-          <div className="mt-8 grid md:grid-cols-3 gap-4">
-            {[
-              { name: "Sarah M.", text: "My son finally loves science. The labs are easy to set up at home." },
-              { name: "James K.", text: "Clear lessons and great mentors. Worth every minute." },
-              { name: "Priya R.", text: "Engaging, well-paced, and aligned with school standards." },
-            ].map((r) => (
-              <div key={r.name} className="rounded-xl border border-border p-5">
-                <div className="flex items-center gap-1 mb-2">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                  ))}
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">"{r.text}"</p>
-                <div className="mt-3 text-sm font-medium">{r.name}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <RatingVote />
       </section>
 
       {/* Features */}
@@ -155,5 +123,79 @@ function Index() {
         </div>
       </section>
     </>
+  );
+}
+
+function RatingVote() {
+  const STORAGE_KEY = "cursor-rating-votes";
+  const VOTED_KEY = "cursor-rating-voted";
+  const [votes, setVotes] = useState<number[]>([0, 0, 0, 0, 0]);
+  const [myVote, setMyVote] = useState<number | null>(null);
+  const [hover, setHover] = useState(0);
+
+  useEffect(() => {
+    try {
+      const v = localStorage.getItem(STORAGE_KEY);
+      if (v) setVotes(JSON.parse(v));
+      const mine = localStorage.getItem(VOTED_KEY);
+      if (mine) setMyVote(Number(mine));
+    } catch {}
+  }, []);
+
+  const submit = (stars: number) => {
+    if (myVote) return;
+    const next = [...votes];
+    next[stars - 1] += 1;
+    setVotes(next);
+    setMyVote(stars);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      localStorage.setItem(VOTED_KEY, String(stars));
+    } catch {}
+  };
+
+  const total = votes.reduce((a, b) => a + b, 0);
+  const avg = total ? votes.reduce((a, b, i) => a + b * (i + 1), 0) / total : 0;
+  const display = hover || myVote || 0;
+
+  return (
+    <div className="rounded-2xl border border-border bg-card p-8">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div>
+          <h2 className="text-2xl font-bold">Rate Cursor</h2>
+          <p className="mt-2 text-muted-foreground">
+            {myVote ? `Thanks for voting! You gave ${myVote} star${myVote > 1 ? "s" : ""}.` : "Tap a star to cast your vote."}
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1" role="radiogroup" aria-label="Rate out of 5">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <button
+                key={i}
+                type="button"
+                disabled={!!myVote}
+                onMouseEnter={() => !myVote && setHover(i)}
+                onMouseLeave={() => !myVote && setHover(0)}
+                onClick={() => submit(i)}
+                aria-label={`${i} star${i > 1 ? "s" : ""}`}
+                className="p-1 disabled:cursor-not-allowed"
+              >
+                <Star className={`h-7 w-7 transition-smooth ${i <= display ? "fill-primary text-primary" : "text-muted-foreground"}`} />
+              </button>
+            ))}
+          </div>
+          <div className="text-sm text-muted-foreground">
+            {total > 0 ? (
+              <>
+                <span className="font-bold text-foreground font-display text-lg">{avg.toFixed(1)}</span> / 5
+                <span className="ml-2">({total} vote{total !== 1 ? "s" : ""})</span>
+              </>
+            ) : (
+              <span>No votes yet</span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
