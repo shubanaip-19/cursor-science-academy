@@ -20,8 +20,14 @@ function Index() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-background border-b border-border">
-        <div className="container mx-auto px-6 pt-20 pb-24 md:pt-28 md:pb-32">
+      <section className="relative overflow-hidden border-b border-border">
+        <div
+          className="absolute inset-0"
+          style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center" }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-background/70" aria-hidden />
+        <div className="relative container mx-auto px-6 pt-20 pb-24 md:pt-28 md:pb-32">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight">
               Where young minds discover the universe
