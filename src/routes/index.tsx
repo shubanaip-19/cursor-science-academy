@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, FlaskConical, GraduationCap, Sparkles, Users } from "lucide-react";
-import heroImg from "@/assets/hero-science.jpg";
+import { ArrowRight, FlaskConical, GraduationCap, Star, Users } from "lucide-react";
 import { courses, grades } from "@/data/courses";
 import { CourseCard } from "@/components/CourseCard";
 
