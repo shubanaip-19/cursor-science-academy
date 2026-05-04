@@ -23,7 +23,7 @@ function Index() {
         <div className="container mx-auto px-6 pt-20 pb-24 md:pt-28 md:pb-32">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight">
-              Science courses for grades 5–9
+              Where young minds discover the universe
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
               Cursor brings hands-on science to students in grades 5–9. From cells to galaxies,
