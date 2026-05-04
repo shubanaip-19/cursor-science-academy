@@ -59,42 +59,9 @@ function Index() {
         </div>
       </section>
 
-      {/* Ratings */}
+      {/* Vote */}
       <section className="container mx-auto px-6 py-16">
-        <div className="rounded-2xl border border-border bg-card p-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div>
-              <h2 className="text-2xl font-bold">Loved by students and parents</h2>
-              <p className="mt-2 text-muted-foreground">Based on 1,200+ reviews from families.</p>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1" aria-label="Rated 4.8 out of 5">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Star key={i} className={`h-6 w-6 ${i <= 4 ? "fill-primary text-primary" : i === 5 ? "fill-primary/50 text-primary" : "text-muted-foreground"}`} />
-                ))}
-              </div>
-              <span className="text-2xl font-bold font-display">4.8</span>
-              <span className="text-muted-foreground">/ 5</span>
-            </div>
-          </div>
-          <div className="mt-8 grid md:grid-cols-3 gap-4">
-            {[
-              { name: "Sarah M.", text: "My son finally loves science. The labs are easy to set up at home." },
-              { name: "James K.", text: "Clear lessons and great mentors. Worth every minute." },
-              { name: "Priya R.", text: "Engaging, well-paced, and aligned with school standards." },
-            ].map((r) => (
-              <div key={r.name} className="rounded-xl border border-border p-5">
-                <div className="flex items-center gap-1 mb-2">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                  ))}
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">"{r.text}"</p>
-                <div className="mt-3 text-sm font-medium">{r.name}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <RatingVote />
       </section>
 
       {/* Features */}
