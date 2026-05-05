@@ -30,6 +30,9 @@ function Index() {
         <div className="absolute inset-0 bg-background/70" aria-hidden />
         <div className="relative container mx-auto px-6 pt-20 pb-24 md:pt-28 md:pb-32">
           <div className="max-w-3xl">
+            <p className="text-xs md:text-sm text-muted-foreground mb-4">
+              Reliable sources from all around the world are supporting your learning through Cursor — if you want to check it out, go to the very bottom after trying out some courses.
+            </p>
             <h1 className="text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight">
               Where young minds discover the universe
             </h1>
