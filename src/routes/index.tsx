@@ -4,6 +4,7 @@ import { ArrowRight, FlaskConical, GraduationCap, Star, Users } from "lucide-rea
 import heroBg from "@/assets/hero-rocket.png";
 import { courses, grades } from "@/data/courses";
 import { CourseCard } from "@/components/CourseCard";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   head: () => ({
