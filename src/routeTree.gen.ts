@@ -9,13 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StudyBuddyRouteImport } from './routes/study-buddy'
 import { Route as IbCoursesRouteImport } from './routes/ib-courses'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiSearchRouteImport } from './routes/api/search'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 
+const StudyBuddyRoute = StudyBuddyRouteImport.update({
+  id: '/study-buddy',
+  path: '/study-buddy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IbCoursesRoute = IbCoursesRouteImport.update({
   id: '/ib-courses',
   path: '/ib-courses',
@@ -46,6 +53,11 @@ const ApiSearchRoute = ApiSearchRouteImport.update({
   path: '/api/search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,6 +65,8 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
   '/ib-courses': typeof IbCoursesRoute
+  '/study-buddy': typeof StudyBuddyRoute
+  '/api/chat': typeof ApiChatRoute
   '/api/search': typeof ApiSearchRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +75,8 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
   '/ib-courses': typeof IbCoursesRoute
+  '/study-buddy': typeof StudyBuddyRoute
+  '/api/chat': typeof ApiChatRoute
   '/api/search': typeof ApiSearchRoute
 }
 export interface FileRoutesById {
@@ -70,6 +86,8 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
   '/ib-courses': typeof IbCoursesRoute
+  '/study-buddy': typeof StudyBuddyRoute
+  '/api/chat': typeof ApiChatRoute
   '/api/search': typeof ApiSearchRoute
 }
 export interface FileRouteTypes {
@@ -80,9 +98,19 @@ export interface FileRouteTypes {
     | '/contact'
     | '/courses'
     | '/ib-courses'
+    | '/study-buddy'
+    | '/api/chat'
     | '/api/search'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/courses' | '/ib-courses' | '/api/search'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/courses'
+    | '/ib-courses'
+    | '/study-buddy'
+    | '/api/chat'
+    | '/api/search'
   id:
     | '__root__'
     | '/'
@@ -90,6 +118,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/courses'
     | '/ib-courses'
+    | '/study-buddy'
+    | '/api/chat'
     | '/api/search'
   fileRoutesById: FileRoutesById
 }
@@ -99,11 +129,20 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CoursesRoute: typeof CoursesRoute
   IbCoursesRoute: typeof IbCoursesRoute
+  StudyBuddyRoute: typeof StudyBuddyRoute
+  ApiChatRoute: typeof ApiChatRoute
   ApiSearchRoute: typeof ApiSearchRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/study-buddy': {
+      id: '/study-buddy'
+      path: '/study-buddy'
+      fullPath: '/study-buddy'
+      preLoaderRoute: typeof StudyBuddyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ib-courses': {
       id: '/ib-courses'
       path: '/ib-courses'
@@ -146,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -155,17 +201,10 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CoursesRoute: CoursesRoute,
   IbCoursesRoute: IbCoursesRoute,
+  StudyBuddyRoute: StudyBuddyRoute,
+  ApiChatRoute: ApiChatRoute,
   ApiSearchRoute: ApiSearchRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
