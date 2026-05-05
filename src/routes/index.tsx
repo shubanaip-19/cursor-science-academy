@@ -138,31 +138,41 @@ function Index() {
 }
 
 function RatingVote() {
-  const STORAGE_KEY = "cursor-rating-votes";
   const VOTED_KEY = "cursor-rating-voted";
   const [votes, setVotes] = useState<number[]>([0, 0, 0, 0, 0]);
   const [myVote, setMyVote] = useState<number | null>(null);
   const [hover, setHover] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
+
+  const loadVotes = async () => {
+    const { data } = await supabase.from("ratings").select("stars");
+    if (data) {
+      const next = [0, 0, 0, 0, 0];
+      for (const r of data) {
+        const s = r.stars as number;
+        if (s >= 1 && s <= 5) next[s - 1] += 1;
+      }
+      setVotes(next);
+    }
+  };
 
   useEffect(() => {
+    loadVotes();
     try {
-      const v = localStorage.getItem(STORAGE_KEY);
-      if (v) setVotes(JSON.parse(v));
       const mine = localStorage.getItem(VOTED_KEY);
       if (mine) setMyVote(Number(mine));
     } catch {}
   }, []);
 
-  const submit = (stars: number) => {
-    if (myVote) return;
-    const next = [...votes];
-    next[stars - 1] += 1;
-    setVotes(next);
+  const submit = async (stars: number) => {
+    if (myVote || submitting) return;
+    setSubmitting(true);
+    const { error } = await supabase.from("ratings").insert({ stars });
+    setSubmitting(false);
+    if (error) return;
     setMyVote(stars);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-      localStorage.setItem(VOTED_KEY, String(stars));
-    } catch {}
+    try { localStorage.setItem(VOTED_KEY, String(stars)); } catch {}
+    loadVotes();
   };
 
   const total = votes.reduce((a, b) => a + b, 0);
