@@ -4,6 +4,7 @@ import { ArrowRight, FlaskConical, GraduationCap, Star, Users } from "lucide-rea
 import heroBg from "@/assets/hero-rocket.png";
 import { courses, grades } from "@/data/courses";
 import { CourseCard } from "@/components/CourseCard";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,6 +30,9 @@ function Index() {
         <div className="absolute inset-0 bg-background/70" aria-hidden />
         <div className="relative container mx-auto px-6 pt-20 pb-24 md:pt-28 md:pb-32">
           <div className="max-w-3xl">
+            <p className="text-xs md:text-sm text-muted-foreground mb-4">
+              Reliable sources from all around the world are supporting your learning through Cursor — if you want to check it out, go to the very bottom after trying out some courses.
+            </p>
             <h1 className="text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight">
               Where young minds discover the universe
             </h1>
@@ -134,31 +138,41 @@ function Index() {
 }
 
 function RatingVote() {
-  const STORAGE_KEY = "cursor-rating-votes";
   const VOTED_KEY = "cursor-rating-voted";
   const [votes, setVotes] = useState<number[]>([0, 0, 0, 0, 0]);
   const [myVote, setMyVote] = useState<number | null>(null);
   const [hover, setHover] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
+
+  const loadVotes = async () => {
+    const { data } = await supabase.from("ratings").select("stars");
+    if (data) {
+      const next = [0, 0, 0, 0, 0];
+      for (const r of data) {
+        const s = r.stars as number;
+        if (s >= 1 && s <= 5) next[s - 1] += 1;
+      }
+      setVotes(next);
+    }
+  };
 
   useEffect(() => {
+    loadVotes();
     try {
-      const v = localStorage.getItem(STORAGE_KEY);
-      if (v) setVotes(JSON.parse(v));
       const mine = localStorage.getItem(VOTED_KEY);
       if (mine) setMyVote(Number(mine));
     } catch {}
   }, []);
 
-  const submit = (stars: number) => {
-    if (myVote) return;
-    const next = [...votes];
-    next[stars - 1] += 1;
-    setVotes(next);
+  const submit = async (stars: number) => {
+    if (myVote || submitting) return;
+    setSubmitting(true);
+    const { error } = await supabase.from("ratings").insert({ stars });
+    setSubmitting(false);
+    if (error) return;
     setMyVote(stars);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-      localStorage.setItem(VOTED_KEY, String(stars));
-    } catch {}
+    try { localStorage.setItem(VOTED_KEY, String(stars)); } catch {}
+    loadVotes();
   };
 
   const total = votes.reduce((a, b) => a + b, 0);
