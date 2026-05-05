@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiSearchRouteImport } from './routes/api/search'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 
 const IbCoursesRoute = IbCoursesRouteImport.update({
   id: '/ib-courses',
@@ -46,6 +47,11 @@ const ApiSearchRoute = ApiSearchRouteImport.update({
   path: '/api/search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
   '/ib-courses': typeof IbCoursesRoute
+  '/api/chat': typeof ApiChatRoute
   '/api/search': typeof ApiSearchRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
   '/ib-courses': typeof IbCoursesRoute
+  '/api/chat': typeof ApiChatRoute
   '/api/search': typeof ApiSearchRoute
 }
 export interface FileRoutesById {
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/courses': typeof CoursesRoute
   '/ib-courses': typeof IbCoursesRoute
+  '/api/chat': typeof ApiChatRoute
   '/api/search': typeof ApiSearchRoute
 }
 export interface FileRouteTypes {
@@ -80,9 +89,17 @@ export interface FileRouteTypes {
     | '/contact'
     | '/courses'
     | '/ib-courses'
+    | '/api/chat'
     | '/api/search'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/courses' | '/ib-courses' | '/api/search'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/courses'
+    | '/ib-courses'
+    | '/api/chat'
+    | '/api/search'
   id:
     | '__root__'
     | '/'
@@ -90,6 +107,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/courses'
     | '/ib-courses'
+    | '/api/chat'
     | '/api/search'
   fileRoutesById: FileRoutesById
 }
@@ -99,6 +117,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CoursesRoute: typeof CoursesRoute
   IbCoursesRoute: typeof IbCoursesRoute
+  ApiChatRoute: typeof ApiChatRoute
   ApiSearchRoute: typeof ApiSearchRoute
 }
 
@@ -146,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -155,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CoursesRoute: CoursesRoute,
   IbCoursesRoute: IbCoursesRoute,
+  ApiChatRoute: ApiChatRoute,
   ApiSearchRoute: ApiSearchRoute,
 }
 export const routeTree = rootRouteImport
