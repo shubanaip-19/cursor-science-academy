@@ -1,14 +1,24 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { ExternalLink, ShieldCheck, Search } from "lucide-react";
-import { courses, grades, providers } from "@/data/courses";
+import { courses, grades, providers, languages } from "@/data/courses";
 import { CourseCard } from "@/components/CourseCard";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const searchSchema = z.object({
   grade: z.coerce.number().int().min(5).max(9).optional(),
+  language: z.enum(["English", "Spanish", "French", "Arabic", "Mandarin"]).optional(),
 });
 
 export const Route = createFileRoute("/courses")({
@@ -25,8 +35,13 @@ export const Route = createFileRoute("/courses")({
 });
 
 function CoursesPage() {
-  const { grade } = Route.useSearch();
-  const filtered = grade ? courses.filter((c) => c.grade === grade) : courses;
+  const { grade, language } = Route.useSearch();
+  const navigate = useNavigate({ from: "/courses" });
+  const filtered = courses.filter((c) => {
+    if (grade && c.grade !== grade) return false;
+    if (language && (c.language ?? "English") !== language) return false;
+    return true;
+  });
   const [query, setQuery] = useState("");
   const [searching, setSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
@@ -57,7 +72,6 @@ function CoursesPage() {
     }
   };
 
-  const chip = "px-4 py-2 rounded-full text-sm font-medium border transition-smooth";
   return (
     <div className="container mx-auto px-6 py-16">
       <div className="max-w-3xl">
@@ -72,7 +86,7 @@ function CoursesPage() {
         </p>
       </div>
 
-      <form onSubmit={handleSearch} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-2xl">
+      <form onSubmit={handleSearch} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-3xl">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
@@ -91,6 +105,41 @@ function CoursesPage() {
         >
           {searching ? "Searching…" : "Search"}
         </Button>
+        <Select
+          value={grade ? `grade:${grade}` : language ? `lang:${language}` : "all"}
+          onValueChange={(val) => {
+            if (val === "all") {
+              navigate({ search: {} });
+            } else if (val.startsWith("grade:")) {
+              navigate({ search: { grade: Number(val.slice(6)) as 5 | 6 | 7 | 8 | 9 } });
+            } else if (val.startsWith("lang:")) {
+              navigate({ search: { language: val.slice(5) as typeof language } });
+            }
+          }}
+        >
+          <SelectTrigger className="h-11 sm:w-56" aria-label="Filter courses">
+            <SelectValue placeholder="Filter" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All courses</SelectItem>
+            <SelectGroup>
+              <SelectLabel>Grade</SelectLabel>
+              {grades.map((g) => (
+                <SelectItem key={`grade-${g}`} value={`grade:${g}`}>
+                  Grade {g}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+            <SelectGroup>
+              <SelectLabel>Language</SelectLabel>
+              {languages.map((l) => (
+                <SelectItem key={`lang-${l}`} value={`lang:${l}`}>
+                  {l}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       </form>
 
       {searchError && (
@@ -133,28 +182,10 @@ function CoursesPage() {
         </section>
       )}
 
-      <div className="mt-10 flex flex-wrap gap-3">
-        <Link
-          to="/courses"
-          className={`${chip} ${!grade ? "bg-gradient-primary text-primary-foreground border-transparent shadow-glow" : "border-border bg-background/40 hover:border-primary/50"}`}
-        >
-          All Grades
-        </Link>
-        {grades.map((g) => (
-          <Link
-            key={g}
-            to="/courses"
-            search={{ grade: g }}
-            className={`${chip} ${grade === g ? "bg-gradient-primary text-primary-foreground border-transparent shadow-glow" : "border-border bg-background/40 hover:border-primary/50"}`}
-          >
-            Grade {g}
-          </Link>
-        ))}
-      </div>
-
-      <p className="mt-8 text-sm text-muted-foreground">
+      <p className="mt-10 text-sm text-muted-foreground">
         Showing {filtered.length} {filtered.length === 1 ? "course" : "courses"}
         {grade ? ` for Grade ${grade}` : ""}
+        {language ? ` in ${language}` : ""}
       </p>
 
       <div className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-6">

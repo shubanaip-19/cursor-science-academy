@@ -1,6 +1,10 @@
 import { Atom, Beaker, Dna, Globe2, Leaf, Magnet, Microscope, Rocket, Sparkles, Telescope, TreePine, Waves, Wind, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+export type Language = "English" | "Spanish" | "French" | "Arabic" | "Mandarin";
+
+export const languages: Language[] = ["English", "Spanish", "French", "Arabic", "Mandarin"];
+
 export type Course = {
   id: string;
   title: string;
@@ -12,6 +16,7 @@ export type Course = {
   icon: LucideIcon;
   provider: string;
   url: string;
+  language?: Language;
 };
 
 export const courses: Course[] = [
@@ -203,6 +208,88 @@ export const courses: Course[] = [
     icon: Rocket,
     provider: "Khan Academy",
     url: "https://www.khanacademy.org/science/cosmology-and-astronomy",
+  },
+  // Spanish
+  {
+    id: "es-g6-cells",
+    title: "Células y Organismos",
+    grade: 6,
+    subject: "Biology",
+    lessons: 16,
+    duration: "7 semanas",
+    description: "Descubre las pequeñas unidades que componen los seres vivos.",
+    icon: Microscope,
+    provider: "Khan Academy en Español",
+    url: "https://es.khanacademy.org/science/biology",
+    language: "Spanish",
+  },
+  {
+    id: "es-g8-space",
+    title: "El Sistema Solar",
+    grade: 8,
+    subject: "Earth & Space",
+    lessons: 12,
+    duration: "6 semanas",
+    description: "Planetas, lunas y nuestro lugar en el vecindario del Sol.",
+    icon: Telescope,
+    provider: "NASA Ciencia",
+    url: "https://ciencia.nasa.gov/sistema-solar/",
+    language: "Spanish",
+  },
+  // French
+  {
+    id: "fr-g7-atoms",
+    title: "Atomes et Molécules",
+    grade: 7,
+    subject: "Chemistry",
+    lessons: 14,
+    duration: "7 semaines",
+    description: "Rencontre les plus petites pièces de la matière.",
+    icon: Atom,
+    provider: "Khan Academy (Français)",
+    url: "https://fr.khanacademy.org/science",
+    language: "French",
+  },
+  {
+    id: "fr-g9-bio",
+    title: "Biologie au Lycée",
+    grade: 9,
+    subject: "Biology",
+    lessons: 20,
+    duration: "10 semaines",
+    description: "Cellules, évolution et écologie pour jeunes scientifiques.",
+    icon: Microscope,
+    provider: "Khan Academy (Français)",
+    url: "https://fr.khanacademy.org/science/high-school-biology",
+    language: "French",
+  },
+  // Arabic
+  {
+    id: "ar-g6-energy",
+    title: "القوى والطاقة",
+    grade: 6,
+    subject: "Physics",
+    lessons: 14,
+    duration: "7 أسابيع",
+    description: "الضوء والحرارة والصوت والحركة في حياتنا اليومية.",
+    icon: Zap,
+    provider: "أكاديمية خان",
+    url: "https://ar.khanacademy.org/science",
+    language: "Arabic",
+  },
+  // Mandarin
+  {
+    id: "zh-g8-forces",
+    title: "力与运动",
+    grade: 8,
+    subject: "Physics",
+    lessons: 14,
+    duration: "7 周",
+    description: "牛顿定律、重力以及物体如何运动的物理学。",
+    icon: Magnet,
+    provider: "可汗学院 (中文)",
+    url: "https://zh.khanacademy.org/science",
+    language: "Mandarin",
   },
 ];
 
