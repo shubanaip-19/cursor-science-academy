@@ -31,14 +31,14 @@ function Index() {
         <div className="relative container mx-auto px-6 pt-20 pb-24 md:pt-28 md:pb-32">
           <div className="max-w-3xl">
             <p className="text-xs md:text-sm text-muted-foreground mb-4">
-              Reliable sources from all around the world are supporting your learning through Cursor — if you want to check it out, go to the very bottom after trying out some courses.
+              Awesome friends from all around the world help power your learning here at Cursor 🌍 — peek at the very bottom after you've played around with a few courses!
             </p>
             <h1 className="text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight">
-              Where young minds discover the universe
+              Where curious kids go on cosmic adventures ✨
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              Cursor brings hands-on science to students in grades 5–9. From cells to galaxies,
-              learn through lessons crafted by passionate teachers.
+              Cursor is your science playground for grades 5–9. From wiggly cells to faraway galaxies,
+              come tinker, wonder, and discover with teachers who genuinely love this stuff.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
