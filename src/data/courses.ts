@@ -16,7 +16,7 @@ export type Course = {
   icon: LucideIcon;
   provider: string;
   url: string;
-  language: Language;
+  language?: Language;
 };
 
 export const courses: Course[] = [
