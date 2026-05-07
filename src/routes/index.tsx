@@ -99,8 +99,8 @@ function Index() {
         <div className="rounded-3xl border border-border bg-gradient-card p-10 shadow-card-soft">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
-              <h2 className="text-3xl font-bold">Pick your grade level</h2>
-              <p className="mt-2 text-muted-foreground">Each grade unlocks a new chapter of science.</p>
+              <h2 className="text-3xl font-bold">Pick your grade 🚀</h2>
+              <p className="mt-2 text-muted-foreground">Each grade unlocks a brand-new chapter of science adventures.</p>
             </div>
             <div className="flex flex-wrap gap-3">
               {grades.map((g) => (
