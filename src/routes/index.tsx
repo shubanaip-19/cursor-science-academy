@@ -45,13 +45,13 @@ function Index() {
                 to="/courses"
                 className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground hover:opacity-90 transition-smooth"
               >
-                Browse Courses <ArrowRight className="h-4 w-4" />
+                Let's explore <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to="/about"
                 className="inline-flex items-center rounded-lg border border-border bg-background px-6 py-3 font-medium hover:border-primary/50 transition-smooth"
               >
-                How it works
+                Peek behind the scenes
               </Link>
             </div>
             <div className="mt-10 flex flex-wrap gap-8 text-sm">
