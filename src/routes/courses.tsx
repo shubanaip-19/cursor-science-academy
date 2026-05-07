@@ -87,7 +87,7 @@ function CoursesPage() {
         </p>
       </div>
 
-      <form onSubmit={handleSearch} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-2xl">
+      <form onSubmit={handleSearch} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-3xl">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
@@ -106,6 +106,41 @@ function CoursesPage() {
         >
           {searching ? "Searching…" : "Search"}
         </Button>
+        <Select
+          value={grade ? `grade:${grade}` : language ? `lang:${language}` : "all"}
+          onValueChange={(val) => {
+            if (val === "all") {
+              navigate({ search: {} });
+            } else if (val.startsWith("grade:")) {
+              navigate({ search: { grade: Number(val.slice(6)) as 5 | 6 | 7 | 8 | 9 } });
+            } else if (val.startsWith("lang:")) {
+              navigate({ search: { language: val.slice(5) as typeof language } });
+            }
+          }}
+        >
+          <SelectTrigger className="h-11 sm:w-56" aria-label="Filter courses">
+            <SelectValue placeholder="Filter" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All courses</SelectItem>
+            <SelectGroup>
+              <SelectLabel>Grade</SelectLabel>
+              {grades.map((g) => (
+                <SelectItem key={`grade-${g}`} value={`grade:${g}`}>
+                  Grade {g}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+            <SelectGroup>
+              <SelectLabel>Language</SelectLabel>
+              {languages.map((l) => (
+                <SelectItem key={`lang-${l}`} value={`lang:${l}`}>
+                  {l}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       </form>
 
       {searchError && (
