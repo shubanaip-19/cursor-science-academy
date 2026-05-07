@@ -10,7 +10,7 @@ export const Route = createFileRoute("/api/search")({
           return Response.json({ error: "FIRECRAWL_API_KEY is not configured" }, { status: 500 });
         }
 
-        let body: { query?: string };
+        let body: { query?: string; language?: string };
         try {
           body = await request.json();
         } catch {
@@ -22,13 +22,27 @@ export const Route = createFileRoute("/api/search")({
           return Response.json({ error: "Query is required" }, { status: 400 });
         }
 
+        const langMap: Record<string, { lang: string; country: string; word: string }> = {
+          English: { lang: "en", country: "us", word: "free online course" },
+          Spanish: { lang: "es", country: "es", word: "curso gratis en línea" },
+          French: { lang: "fr", country: "fr", word: "cours gratuit en ligne" },
+          Arabic: { lang: "ar", country: "sa", word: "دورة مجانية عبر الإنترنت" },
+          Mandarin: { lang: "zh", country: "cn", word: "免费在线课程" },
+        };
+        const loc = langMap[body.language ?? "English"] ?? langMap.English;
+
         const res = await fetch("https://api.firecrawl.dev/v2/search", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${apiKey}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ query: `${query} free online course`, limit: 10 }),
+          body: JSON.stringify({
+            query: `${query} ${loc.word}`,
+            limit: 10,
+            lang: loc.lang,
+            country: loc.country,
+          }),
         });
 
         const data = await res.json().catch(() => null);
