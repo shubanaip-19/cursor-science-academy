@@ -35,8 +35,13 @@ export const Route = createFileRoute("/courses")({
 });
 
 function CoursesPage() {
-  const { grade } = Route.useSearch();
-  const filtered = grade ? courses.filter((c) => c.grade === grade) : courses;
+  const { grade, language } = Route.useSearch();
+  const navigate = useNavigate({ from: "/courses" });
+  const filtered = courses.filter((c) => {
+    if (grade && c.grade !== grade) return false;
+    if (language && (c.language ?? "English") !== language) return false;
+    return true;
+  });
   const [query, setQuery] = useState("");
   const [searching, setSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
