@@ -1,14 +1,24 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { ExternalLink, ShieldCheck, Search } from "lucide-react";
-import { courses, grades, providers } from "@/data/courses";
+import { courses, grades, providers, languages } from "@/data/courses";
 import { CourseCard } from "@/components/CourseCard";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const searchSchema = z.object({
   grade: z.coerce.number().int().min(5).max(9).optional(),
+  language: z.enum(["English", "Spanish", "French", "Arabic", "Mandarin"]).optional(),
 });
 
 export const Route = createFileRoute("/courses")({
