@@ -1,6 +1,10 @@
 import { Atom, Beaker, Dna, Globe2, Leaf, Magnet, Microscope, Rocket, Sparkles, Telescope, TreePine, Waves, Wind, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+export type Language = "English" | "Spanish" | "French" | "Arabic" | "Mandarin";
+
+export const languages: Language[] = ["English", "Spanish", "French", "Arabic", "Mandarin"];
+
 export type Course = {
   id: string;
   title: string;
@@ -12,6 +16,7 @@ export type Course = {
   icon: LucideIcon;
   provider: string;
   url: string;
+  language: Language;
 };
 
 export const courses: Course[] = [
