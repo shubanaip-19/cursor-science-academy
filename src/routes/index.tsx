@@ -122,8 +122,8 @@ function Index() {
       <section className="container mx-auto px-6 py-20">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold">Featured courses</h2>
-            <p className="mt-2 text-muted-foreground">A taste of what's waiting in the lab.</p>
+            <h2 className="text-3xl md:text-4xl font-bold">Featured courses 🌟</h2>
+            <p className="mt-2 text-muted-foreground">A little taste of what's bubbling in the lab.</p>
           </div>
           <Link to="/courses" className="hidden sm:inline-flex items-center gap-1 text-sm text-primary hover:gap-2 transition-smooth">
             View all <ArrowRight className="h-4 w-4" />
