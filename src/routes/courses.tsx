@@ -72,7 +72,6 @@ function CoursesPage() {
     }
   };
 
-  const chip = "px-4 py-2 rounded-full text-sm font-medium border transition-smooth";
   return (
     <div className="container mx-auto px-6 py-16">
       <div className="max-w-3xl">
