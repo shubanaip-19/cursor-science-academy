@@ -183,28 +183,10 @@ function CoursesPage() {
         </section>
       )}
 
-      <div className="mt-10 flex flex-wrap gap-3">
-        <Link
-          to="/courses"
-          className={`${chip} ${!grade ? "bg-gradient-primary text-primary-foreground border-transparent shadow-glow" : "border-border bg-background/40 hover:border-primary/50"}`}
-        >
-          All Grades
-        </Link>
-        {grades.map((g) => (
-          <Link
-            key={g}
-            to="/courses"
-            search={{ grade: g }}
-            className={`${chip} ${grade === g ? "bg-gradient-primary text-primary-foreground border-transparent shadow-glow" : "border-border bg-background/40 hover:border-primary/50"}`}
-          >
-            Grade {g}
-          </Link>
-        ))}
-      </div>
-
-      <p className="mt-8 text-sm text-muted-foreground">
+      <p className="mt-10 text-sm text-muted-foreground">
         Showing {filtered.length} {filtered.length === 1 ? "course" : "courses"}
         {grade ? ` for Grade ${grade}` : ""}
+        {language ? ` in ${language}` : ""}
       </p>
 
       <div className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
