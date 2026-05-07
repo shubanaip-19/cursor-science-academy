@@ -79,9 +79,9 @@ function Index() {
       <section className="container mx-auto px-6 py-20">
         <div className="grid md:grid-cols-3 gap-6">
           {[
-            { icon: FlaskConical, title: "Hands-on Labs", text: "Real experiments students can run at home with simple materials." },
-            { icon: GraduationCap, title: "Grade-aligned", text: "Curriculum aligned to grades 5–9 standards, paced for understanding." },
-            { icon: Users, title: "Live Mentors", text: "Weekly office hours with science teachers who love what they teach." },
+            { icon: FlaskConical, title: "Hands-on Fun 🧪", text: "Real experiments you can run at home — bubbles, sparks, and all." },
+            { icon: GraduationCap, title: "Just Right 🎯", text: "Made for grades 5–9, paced so it never feels like a homework mountain." },
+            { icon: Users, title: "Friendly Mentors 💬", text: "Drop in to weekly office hours with teachers who think science is the best." },
           ].map((f) => (
             <div key={f.title} className="rounded-2xl border border-border bg-gradient-card p-7 shadow-card-soft">
               <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
