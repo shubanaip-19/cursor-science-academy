@@ -183,9 +183,9 @@ function RatingVote() {
     <div className="rounded-2xl border border-border bg-card p-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         <div>
-          <h2 className="text-2xl font-bold">Rate Cursor</h2>
+          <h2 className="text-2xl font-bold">Rate Cursor ⭐</h2>
           <p className="mt-2 text-muted-foreground">
-            {myVote ? `Thanks for voting! You gave ${myVote} star${myVote > 1 ? "s" : ""}.` : "Tap a star to cast your vote."}
+            {myVote ? `Yay — thanks for the ${myVote} star${myVote > 1 ? "s" : ""}! You're awesome. 🎉` : "How are we doing? Tap a star to let us know!"}
           </p>
         </div>
         <div className="flex items-center gap-3">
