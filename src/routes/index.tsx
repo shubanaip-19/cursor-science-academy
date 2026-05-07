@@ -31,27 +31,27 @@ function Index() {
         <div className="relative container mx-auto px-6 pt-20 pb-24 md:pt-28 md:pb-32">
           <div className="max-w-3xl">
             <p className="text-xs md:text-sm text-muted-foreground mb-4">
-              Awesome friends from all around the world help power your learning here at Cursor 🌍 — peek at the very bottom after you've played around with a few courses!
+              Reliable sources from all around the world are supporting your learning through Cursor — if you want to check it out, go to the very bottom after trying out some courses.
             </p>
             <h1 className="text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight">
-              Where curious kids go on cosmic adventures ✨
+              Where young minds discover the universe
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              Cursor is your science playground for grades 5–9. From wiggly cells to faraway galaxies,
-              come tinker, wonder, and discover with teachers who genuinely love this stuff.
+              Cursor brings hands-on science to students in grades 5–9. From cells to galaxies,
+              learn through lessons crafted by passionate teachers.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 to="/courses"
                 className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground hover:opacity-90 transition-smooth"
               >
-                Let's explore <ArrowRight className="h-4 w-4" />
+                Browse Courses <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to="/about"
                 className="inline-flex items-center rounded-lg border border-border bg-background px-6 py-3 font-medium hover:border-primary/50 transition-smooth"
               >
-                Peek behind the scenes
+                How it works
               </Link>
             </div>
             <div className="mt-10 flex flex-wrap gap-8 text-sm">
@@ -79,9 +79,9 @@ function Index() {
       <section className="container mx-auto px-6 py-20">
         <div className="grid md:grid-cols-3 gap-6">
           {[
-            { icon: FlaskConical, title: "Hands-on Fun 🧪", text: "Real experiments you can run at home — bubbles, sparks, and all." },
-            { icon: GraduationCap, title: "Just Right 🎯", text: "Made for grades 5–9, paced so it never feels like a homework mountain." },
-            { icon: Users, title: "Friendly Mentors 💬", text: "Drop in to weekly office hours with teachers who think science is the best." },
+            { icon: FlaskConical, title: "Hands-on Labs", text: "Real experiments students can run at home with simple materials." },
+            { icon: GraduationCap, title: "Grade-aligned", text: "Curriculum aligned to grades 5–9 standards, paced for understanding." },
+            { icon: Users, title: "Live Mentors", text: "Weekly office hours with science teachers who love what they teach." },
           ].map((f) => (
             <div key={f.title} className="rounded-2xl border border-border bg-gradient-card p-7 shadow-card-soft">
               <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
@@ -99,8 +99,8 @@ function Index() {
         <div className="rounded-3xl border border-border bg-gradient-card p-10 shadow-card-soft">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
-              <h2 className="text-3xl font-bold">Pick your grade 🚀</h2>
-              <p className="mt-2 text-muted-foreground">Each grade unlocks a brand-new chapter of science adventures.</p>
+              <h2 className="text-3xl font-bold">Pick your grade level</h2>
+              <p className="mt-2 text-muted-foreground">Each grade unlocks a new chapter of science.</p>
             </div>
             <div className="flex flex-wrap gap-3">
               {grades.map((g) => (
@@ -122,8 +122,8 @@ function Index() {
       <section className="container mx-auto px-6 py-20">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold">Featured courses 🌟</h2>
-            <p className="mt-2 text-muted-foreground">A little taste of what's bubbling in the lab.</p>
+            <h2 className="text-3xl md:text-4xl font-bold">Featured courses</h2>
+            <p className="mt-2 text-muted-foreground">A taste of what's waiting in the lab.</p>
           </div>
           <Link to="/courses" className="hidden sm:inline-flex items-center gap-1 text-sm text-primary hover:gap-2 transition-smooth">
             View all <ArrowRight className="h-4 w-4" />
@@ -183,9 +183,9 @@ function RatingVote() {
     <div className="rounded-2xl border border-border bg-card p-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         <div>
-          <h2 className="text-2xl font-bold">Rate Cursor ⭐</h2>
+          <h2 className="text-2xl font-bold">Rate Cursor</h2>
           <p className="mt-2 text-muted-foreground">
-            {myVote ? `Yay — thanks for the ${myVote} star${myVote > 1 ? "s" : ""}! You're awesome. 🎉` : "How are we doing? Tap a star to let us know!"}
+            {myVote ? `Thanks for voting! You gave ${myVote} star${myVote > 1 ? "s" : ""}.` : "Tap a star to cast your vote."}
           </p>
         </div>
         <div className="flex items-center gap-3">
