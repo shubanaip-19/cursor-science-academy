@@ -18,7 +18,35 @@ import {
 
 const searchSchema = z.object({
   grade: z.coerce.number().int().min(5).max(9).optional(),
-  language: z.enum(["English", "Spanish", "French", "Arabic", "Mandarin"]).optional(),
+  language: z
+    .enum([
+      "English",
+      "Spanish",
+      "French",
+      "Arabic",
+      "Mandarin",
+      "Hindi",
+      "Italian",
+      "Romanian",
+      "German",
+      "Portuguese",
+      "Russian",
+      "Japanese",
+      "Korean",
+      "Turkish",
+      "Dutch",
+      "Polish",
+      "Vietnamese",
+      "Indonesian",
+      "Bengali",
+      "Greek",
+      "Hebrew",
+      "Ukrainian",
+      "Swahili",
+      "Thai",
+      "Urdu",
+    ])
+    .optional(),
 });
 
 export const Route = createFileRoute("/courses")({
